@@ -3,16 +3,7 @@ pragma solidity ^0.8.0;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {IERC20} from "@openzeppelin/contracts/interfaces/IERC20.sol";
-
-interface IPool {
-    function mintToTreasury(address[] calldata assets) external;
-
-    function withdraw(
-        address asset,
-        uint256 amount,
-        address to
-    ) external returns (uint256);
-}
+import {IPool} from "./IPool.sol";
 
 contract FeesClaimer is Ownable {
     address public collector;
