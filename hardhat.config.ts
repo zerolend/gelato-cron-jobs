@@ -17,6 +17,10 @@ const config: HardhatUserConfig = {
       url: "https://pacific-rpc.manta.network/http",
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
     },
+    era: {
+      url: "https://mainnet.era.zksync.io",
+      accounts: [process.env.WALLET_PRIVATE_KEY || ""],
+    },
   },
   etherscan: {
     apiKey: {
