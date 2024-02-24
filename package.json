@@ -24,6 +24,7 @@
     "viem": "^2.7.13"
   },
   "scripts": {
+    "build": "tsc",
     "compile": "yarn hardhat compile",
     "deploy-claimer": "yarn hardhat deploy-zksync --script deploy-fee-claimer.ts",
     "deploy-w3f-claimer": "w3f deploy web3-functions/fees-claimer-job/index.ts"
@@ -36,6 +37,7 @@
     "@types/node-cron": "^3.0.11",
     "cron": "^3.1.6",
     "ky": "^0.33.3",
-    "node-cron": "^3.0.3"
+    "node-cron": "^3.0.3",
+    "tsc": "^2.0.4"
   }
 }
