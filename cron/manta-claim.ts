@@ -37,7 +37,4 @@ const main = async function () {
 };
 
 main();
-
-cron.schedule("0 0 * * *", () => {
-  main;
-});
+cron.schedule("0 0 * * *", main);
