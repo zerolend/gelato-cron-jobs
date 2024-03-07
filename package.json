@@ -33,6 +33,7 @@
     "@gelatonetwork/automate-sdk": "^2.14.0",
     "@gelatonetwork/web3-functions-sdk": "^2.1.3",
     "@openzeppelin/contracts": "^4.9.2",
+    "@pythnetwork/pyth-evm-js": "^1.33.0",
     "@tsconfig/recommended": "^1.0.2",
     "@types/node-cron": "^3.0.11",
     "cron": "^3.1.6",
