@@ -1,0 +1,48 @@
+{
+  "name": "cron-jobs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@nomicfoundation/hardhat-toolbox-viem": "^2.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@nomicfoundation/hardhat-viem": "^1.0.0",
+    "@nomiclabs/hardhat-etherscan": "^3.1.7",
+    "@types/chai": "^4.2.0",
+    "@types/chai-as-promised": "^7.1.6",
+    "@types/mocha": ">=9.1.0",
+    "@types/node": ">=16.0.0",
+    "chai": "^4.2.0",
+    "dotenv": "^16.0.3",
+    "hardhat": "^2.14.0",
+    "hardhat-gas-reporter": "^1.0.8",
+    "mocha": "^10.2.0",
+    "solidity-coverage": "^0.8.0",
+    "ts-node": ">=8.0.0",
+    "typescript": "~5.0.4",
+    "viem": "^2.9.5"
+  },
+  "scripts": {
+    "build": "tsc",
+    "compile": "hardhat compile",
+    "deploy-claimer": "hardhat deploy-zksync --script deploy-fee-claimer.ts",
+    "deploy-w3f-claimer": "w3f deploy web3-functions/fees-claimer-job/index.ts",
+    "test-w3f-oracle": "hardhat w3f-run coingecko-oracle",
+    "test-w3f-claimer": "hardhat w3f-run fees-claimer-job",
+    "deploy-w3f-oracle": "w3f deploy web3-functions/coingecko-oracle/index.ts"
+  },
+  "dependencies": {
+    "@gelatonetwork/automate-sdk": "^2.14.0",
+    "@gelatonetwork/web3-functions-sdk": "^2.4.1",
+    "@openzeppelin/contracts": "^4.9.2",
+    "@pythnetwork/pyth-evm-js": "^1.33.0",
+    "@tsconfig/recommended": "^1.0.2",
+    "@types/node-cron": "^3.0.11",
+    "@zerolendxyz/core-v3": "^2.16.0",
+    "cron": "^3.1.6",
+    "ky": "^1.2.4",
+    "node-cron": "^3.0.3",
+    "tsc": "^2.0.4"
+  }
+}
