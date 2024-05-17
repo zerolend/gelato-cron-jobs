@@ -1,6 +1,7 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox-viem";
 import "@gelatonetwork/web3-functions-sdk/hardhat-plugin";
+import "hardhat-dependency-compiler";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -8,11 +9,28 @@ const config: HardhatUserConfig = {
   w3f: {
     rootDir: "./web3-functions",
     debug: false,
-    networks: ["zkSyncEra", "linea"], //(multiChainProvider) injects provider for these networks
+    networks: ["linea"], //(multiChainProvider) injects provider for these networks
   },
-  solidity: "0.8.19",
+  solidity: "0.8.20",
   defaultNetwork: "linea",
+
+  dependencyCompiler: {
+    paths: [
+      "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol",
+    ],
+  },
   networks: {
+    hardhat: {
+      forking: {
+        url: "https://rpc.linea.build",
+      },
+      accounts: [
+        {
+          privateKey: process.env.WALLET_PRIVATE_KEY || "",
+          balance: "10000000000000000000000000000000000000",
+        },
+      ],
+    },
     manta: {
       url: "https://pacific-rpc.manta.network/http",
       accounts: [process.env.WALLET_PRIVATE_KEY || ""],
