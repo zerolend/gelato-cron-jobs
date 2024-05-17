@@ -31,6 +31,7 @@
     "test-w3f-oracle": "hardhat w3f-run coingecko-oracle",
     "test-w3f-claimer": "hardhat w3f-run fees-claimer-job",
     "test-w3f-buyback": "hardhat w3f-run buyback-burn-job",
+    "test-w3f-pyth": "hardhat w3f-run smart-pyth-oracle",
     "deploy-w3f-buyback": "w3f deploy web3-functions/buyback-burn-job/index.ts",
     "deploy-w3f-oracle": "w3f deploy web3-functions/coingecko-oracle/index.ts"
   },
@@ -40,6 +41,7 @@
     "@openzeppelin/contracts": "^4.9.2",
     "@openzeppelin/contracts-upgradeable": "^5.0.2",
     "@pythnetwork/pyth-evm-js": "^1.33.0",
+    "@pythnetwork/pyth-sdk-solidity": "^3.1.0",
     "@tsconfig/recommended": "^1.0.2",
     "@types/node-cron": "^3.0.11",
     "@zerolendxyz/core-v3": "^2.16.0",
