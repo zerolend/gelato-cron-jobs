@@ -36,7 +36,8 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
     "function updateFeeds(bytes[] calldata priceUpdateData) public payable",
   ]);
 
-  let updatePriceData = await connection.getPriceFeedsUpdateData(priceIds);
+  const updatePriceData = await connection.getPriceFeedsUpdateData(priceIds);
+
   console.log(updatePriceData[0]);
   const data = iface.encodeFunctionData("updateFeeds", [updatePriceData]);
 

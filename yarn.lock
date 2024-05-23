@@ -850,10 +850,10 @@
   resolved "https://registry.yarnpkg.com/@pythnetwork/price-service-sdk/-/price-service-sdk-1.7.0.tgz#298392277da4d1b1ed2a99621fba4c7e638ce0e6"
   integrity sha512-37rn2bm7tfvhcJzfEytzv2P7hslkNQJq/se6l5CRMnB1zOBmeU7q8fKDeXU+udgaie1oQOk2DKbD9BF/GaVl5w==
 
-"@pythnetwork/pyth-evm-js@^1.33.0":
-  version "1.46.0"
-  resolved "https://registry.yarnpkg.com/@pythnetwork/pyth-evm-js/-/pyth-evm-js-1.46.0.tgz#30e42b339e436af7b32a6001e197d651265ac4b4"
-  integrity sha512-p/0vJXG9/dh5RnTIbg2cspqDvZh+Dob6LdK442npSiqOz4dglisqWpBdEgw2w+JUAtphI19sf5lGmeEyPQaoMQ==
+"@pythnetwork/pyth-evm-js@^1.47.0":
+  version "1.47.0"
+  resolved "https://registry.yarnpkg.com/@pythnetwork/pyth-evm-js/-/pyth-evm-js-1.47.0.tgz#2e27161e3115c59c6b01ac1357680f4d1664073d"
+  integrity sha512-yL8eBtNk3vb1rs9B1wHZO6W7OI+NjXG3MxQHJ0ywBRJjuTuhdJNbMWDJ4SrJCL/DFuNJ52iDN+lA8MV/ABvqQQ==
   dependencies:
     "@pythnetwork/price-service-client" "*"
     buffer "^6.0.3"
