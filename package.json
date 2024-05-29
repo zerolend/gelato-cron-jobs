@@ -31,6 +31,7 @@
     "test-w3f-oracle": "hardhat w3f-run coingecko-oracle",
     "test-w3f-claimer": "hardhat w3f-run fees-claimer-job",
     "test-w3f-buyback": "hardhat w3f-run buyback-burn-job",
+    "test-w3f-claimer-swap": "hardhat w3f-run fees-claim-swap-job",
     "test-w3f-pyth": "hardhat w3f-run pyth-oracle",
     "deploy-w3f-pyth-oracle": "w3f deploy web3-functions/pyth-oracle/index.ts",
     "deploy-w3f-buyback": "w3f deploy web3-functions/buyback-burn-job/index.ts",
