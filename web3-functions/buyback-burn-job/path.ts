@@ -33,7 +33,5 @@ export const getGelatoCode = async (
   const txData = await assembleTx(contract, quote);
   if (!txData) throw new Error("invalid assemble from odos");
 
-  console.log("data", txData.transaction.to);
-
   return txData.transaction;
 };

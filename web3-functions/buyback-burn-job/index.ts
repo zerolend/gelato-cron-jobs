@@ -5,7 +5,7 @@ import {
 } from "@gelatonetwork/web3-functions-sdk";
 import { ethers } from "ethers";
 import { utils, Contract } from "ethers";
-import { getGelatoCode } from "./path";
+import { getGelatoCode as getOdosCode } from "./path";
 
 Web3Function.onRun(async (context: Web3FunctionContext) => {
   const { userArgs } = context;
@@ -16,7 +16,7 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
 
   const iface = new utils.Interface([
     "function balances() public view returns (uint256[] memory, address[] memory)",
-    "function burnBaby(bytes memory data) public",
+    "function execute(bytes memory data) public",
   ]);
 
   const provider = context.multiChainProvider.default();
@@ -28,7 +28,7 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
   ];
 
   try {
-    const ret = await getGelatoCode(
+    const ret = await getOdosCode(
       context.gelatoArgs.chainId,
       zeroAddress,
       contractAddress,
@@ -36,9 +36,11 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
       tokenAddresses
     );
 
+    const data = iface.encodeFunctionData("execute", [ret.data]);
+
     return {
       canExec: true,
-      callData: [{ to: contractAddress, data: ret.data }],
+      callData: [{ to: contractAddress, data }],
     };
   } catch (error: any) {
     const message = (error.message as string) || "";
