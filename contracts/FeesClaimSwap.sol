@@ -15,16 +15,20 @@ interface IWETH is IERC20 {
     function deposit() external payable;
 }
 
+interface IStaker {
+    function notifyRewardAmount(uint256 amount) external;
+}
+
 contract FeesClaimSwap is Initializable, OwnableUpgradeable {
     address public collector;
-    IPool public pool;
-    IPoolDataProvider public dataProvider;
+    address public gelatoooooo;
+    address public odos;
     address[] public tokens;
     IERC20[] public aTokens;
+    IPool public pool;
+    IPoolDataProvider public dataProvider;
+    IStaker public staker;
     IWETH public weth;
-    address public odos;
-    address public gelatoooooo;
-    address public destination;
 
     function init(
         IPoolAddressesProvider _provider,
@@ -32,8 +36,10 @@ contract FeesClaimSwap is Initializable, OwnableUpgradeable {
         address _weth,
         address _odos,
         address[] memory _tokens,
-        address _gelatoooooo
-    ) public reinitializer(2) {
+        address _gelatoooooo,
+        address _staker,
+        address _owner
+    ) public reinitializer(6) {
         __Ownable_init(msg.sender);
 
         collector = _collector;
@@ -41,9 +47,12 @@ contract FeesClaimSwap is Initializable, OwnableUpgradeable {
         pool = IPool(_provider.getPool());
         gelatoooooo = _gelatoooooo;
         dataProvider = IPoolDataProvider(_provider.getPoolDataProvider());
+        staker = IStaker(_staker);
 
         setTokens(_tokens);
         setOdos(_odos);
+
+        _transferOwnership(_owner);
     }
 
     receive() external payable {
@@ -72,7 +81,6 @@ contract FeesClaimSwap is Initializable, OwnableUpgradeable {
         tokens = _tokens;
 
         IERC20[] memory _aTokens = new IERC20[](_tokens.length);
-
         for (uint i = 0; i < _tokens.length; i++) {
             (address aTokenAddress, , ) = dataProvider
                 .getReserveTokensAddresses(_tokens[i]);
@@ -113,18 +121,17 @@ contract FeesClaimSwap is Initializable, OwnableUpgradeable {
         require(success, "odos call failed");
 
         // send all weth to the destination
-        weth.transfer(destination, weth.balanceOf(address(this)));
+        uint256 amt = weth.balanceOf(address(this));
+
+        // give 50% to the owner
+        weth.transfer(owner(), amt / 2);
+
+        // 50% to zLP staking
+        weth.approve(address(staker), amt / 2);
+        staker.notifyRewardAmount(amt / 2);
     }
 
     function refund(IERC20 token) public onlyOwner {
         token.transfer(msg.sender, token.balanceOf(address(this)));
-    }
-
-    function setGelatooooo(address who) public onlyOwner {
-        gelatoooooo = who;
-    }
-
-    function setDestination(address who) public onlyOwner {
-        destination = who;
     }
 }
