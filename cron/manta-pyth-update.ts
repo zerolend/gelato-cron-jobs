@@ -60,6 +60,7 @@ const main = async function () {
   const updateData = [
     priceIdsUSD.eth,
     priceIdsUSD.usdc,
+    priceIdsUSD.wsteth,
     priceIdsUSD.usdt,
     priceIdsUSD.wbtc,
     priceIdsUSD.tia,
