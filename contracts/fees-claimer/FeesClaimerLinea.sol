@@ -6,7 +6,8 @@ import {IPoolAddressesProvider} from "@zerolendxyz/core-v3/contracts/interfaces/
 
 contract FeesClaimerLinea is FeesClaimerCore {
     uint256 public treasuryPercentage;
-    IStaker public staker;
+    IStaker public zlpStaker;
+    address public treasury;
 
     function initialize(
         IPoolAddressesProvider _provider,
@@ -15,9 +16,7 @@ contract FeesClaimerLinea is FeesClaimerCore {
         address _odos,
         address[] memory _tokens,
         address _gelatoooooo,
-        address _owner,
-        address _staker,
-        uint256 _treasuryPercentage
+        address _owner
     ) public reinitializer(7) {
         __FeesClaimer_init(
             _provider,
@@ -28,13 +27,18 @@ contract FeesClaimerLinea is FeesClaimerCore {
             _gelatoooooo,
             _owner
         );
-
-        staker = IStaker(_staker);
-        treasuryPercentage = _treasuryPercentage;
     }
 
     function setPercentages(uint256 _treasuryPercentage) public onlyOwner {
         treasuryPercentage = _treasuryPercentage;
+    }
+
+    function setAddresses(
+        address _treasury,
+        address _zlpStaker
+    ) public onlyOwner {
+        treasury = _treasury;
+        zlpStaker = IStaker(_zlpStaker);
     }
 
     function execute(bytes memory data) public {
@@ -49,7 +53,7 @@ contract FeesClaimerLinea is FeesClaimerCore {
 
         // rest to zLP staking
         uint256 remaining = amt - treasuryAmt;
-        wethOrTargetAsset.approve(address(staker), remaining);
-        staker.notifyRewardAmount(amt - treasuryAmt);
+        wethOrTargetAsset.approve(address(zlpStaker), remaining);
+        zlpStaker.notifyRewardAmount(amt - treasuryAmt);
     }
 }
