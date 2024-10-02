@@ -1,13 +1,8 @@
-# Sample Hardhat Project
+# Gelato Cron Jobs
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+This repo contains all the various Gelato cron jobs that is used to perform various maintenace functions on the protocol
 
-Try running some of the following tasks:
+Cron jobs that have been written include
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
-```
+- Updating PYTH oracles
+- Collecting fees from the lending protocol and swapping it to ETH and redistributing it to stakers
