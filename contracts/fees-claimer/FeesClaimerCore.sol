@@ -9,38 +9,53 @@ import {IPoolDataProvider} from "@zerolendxyz/core-v3/contracts/interfaces/IPool
 import {IPoolAddressesProvider} from "@zerolendxyz/core-v3/contracts/interfaces/IPoolAddressesProvider.sol";
 import {IPool} from "@zerolendxyz/core-v3/contracts/interfaces/IPool.sol";
 
-interface IERC20Burnable is IERC20 {
-    function burn(uint256 amount) external;
+interface IWETH is IERC20 {
+    function withdraw(uint amount) external;
+
+    function deposit() external payable;
 }
 
-contract FeesBuybackBurn is Initializable, OwnableUpgradeable {
+interface IStaker {
+    function notifyRewardAmount(uint256 amount) external;
+
+    function notifyRewardAmount(IERC20 token, uint256 reward) external;
+}
+
+abstract contract FeesClaimerCore is Initializable, OwnableUpgradeable {
     address public collector;
-    IPool public pool;
-    IPoolDataProvider public dataProvider;
+    address public gelatoooooo;
+    address public odos;
     address[] public tokens;
     IERC20[] public aTokens;
-    IERC20Burnable public zero;
-    address public odos;
-    address public gelatoooooo;
+    IPool public pool;
+    IPoolDataProvider public dataProvider;
+    IWETH public wethOrTargetAsset;
 
-    function init(
+    function __FeesClaimer_init(
         IPoolAddressesProvider _provider,
         address _collector,
-        address _zero,
+        address _wethOrTargetAsset,
         address _odos,
         address[] memory _tokens,
-        address _gelatoooooo
-    ) public initializer {
+        address _gelatoooooo,
+        address _owner
+    ) public {
         __Ownable_init(msg.sender);
 
         collector = _collector;
-        zero = IERC20Burnable(_zero);
+        wethOrTargetAsset = IWETH(_wethOrTargetAsset);
         pool = IPool(_provider.getPool());
         gelatoooooo = _gelatoooooo;
         dataProvider = IPoolDataProvider(_provider.getPoolDataProvider());
 
         setTokens(_tokens);
         setOdos(_odos);
+
+        _transferOwnership(_owner);
+    }
+
+    receive() external payable {
+        wethOrTargetAsset.deposit{value: msg.value}();
     }
 
     function setOdos(address _odos) public onlyOwner {
@@ -65,7 +80,6 @@ contract FeesBuybackBurn is Initializable, OwnableUpgradeable {
         tokens = _tokens;
 
         IERC20[] memory _aTokens = new IERC20[](_tokens.length);
-
         for (uint i = 0; i < _tokens.length; i++) {
             (address aTokenAddress, , ) = dataProvider
                 .getReserveTokensAddresses(_tokens[i]);
@@ -99,28 +113,14 @@ contract FeesBuybackBurn is Initializable, OwnableUpgradeable {
         return amounts;
     }
 
-    function burnBaby(bytes memory data) public {
+    function _swapWithOdos(bytes memory data) internal {
         require(msg.sender == owner() || msg.sender == gelatoooooo, "who dis?");
         approve();
         (bool success, ) = odos.call(data);
         require(success, "odos call failed");
-        burnZero();
-    }
-
-    function burnZero() public {
-        zero.burn(zero.balanceOf(address(this)));
-    }
-
-    function execute(bytes memory data) public {
-        collect();
-        burnBaby(data);
     }
 
     function refund(IERC20 token) public onlyOwner {
         token.transfer(msg.sender, token.balanceOf(address(this)));
-    }
-
-    function setGelatooooo(address who) public onlyOwner {
-        gelatoooooo = who;
     }
 }
