@@ -4,8 +4,8 @@ import {
   Web3FunctionContext,
 } from "@gelatonetwork/web3-functions-sdk";
 import { ethers } from "ethers";
-import { utils, Contract } from "ethers";
-import { getGelatoCode } from "./path";
+import { Contract } from "ethers";
+import { getGelatoCode } from "../odos-helpers/path";
 
 Web3Function.onRun(async (context: Web3FunctionContext) => {
   const { userArgs } = context;
@@ -14,16 +14,16 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
     wethAddress: string;
   };
 
-  const iface = new utils.Interface([
+  const iface = new ethers.Interface([
     "function balances() public view returns (uint256[] memory, address[] memory)",
     "function swap(bytes memory data) public",
   ]);
 
-  const provider = context.multiChainProvider.default();
-  const contract = new Contract(contractAddress, iface, provider);
+  const runner = new ethers.JsonRpcProvider("https://rpc.linea.build");
+  const contract = new Contract(contractAddress, iface, runner);
 
   const [balances, tokenAddresses] = (await contract.balances()) as [
-    ethers.BigNumber[],
+    bigint[],
     `0x${string}`[]
   ];
 
