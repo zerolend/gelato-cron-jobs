@@ -2,7 +2,7 @@ import { assembleTx, generateQuote } from "./odos";
 
 export const getGelatoCode = async (
   chainId: number,
-  weth: string,
+  targetToken: string,
   contract: string,
   balances: string[],
   tokenAddresses: readonly `0x${string}`[]
@@ -19,10 +19,11 @@ export const getGelatoCode = async (
         tokenAddress: t,
         amount: balances[i].toString(),
       }))
-      .filter((p) => p.tokenAddress.toLowerCase() != weth.toLowerCase()),
+      .filter((p) => p.tokenAddress.toLowerCase() != targetToken.toLowerCase())
+      .filter((p) => p.amount !== "0"),
     outputTokens: [
       {
-        tokenAddress: weth,
+        tokenAddress: targetToken,
         proportion: 1,
       },
     ],

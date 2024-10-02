@@ -28,11 +28,9 @@ const config: HardhatUserConfig = {
   w3f: {
     rootDir: "./web3-functions",
     debug: false,
-    networks: ["linea"], //(multiChainProvider) injects provider for these networks
+    networks: ["linea", "base"], // (multiChainProvider) injects provider for these networks
   },
   solidity: "0.8.20",
-  defaultNetwork: "linea",
-
   dependencyCompiler: {
     paths: [
       "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol",

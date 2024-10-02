@@ -16,7 +16,7 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
 
   const iface = new ethers.Interface([
     "function balances() public view returns (uint256[] memory, address[] memory)",
-    "function swap(bytes memory data) public",
+    "function execute(bytes memory data) public",
   ]);
 
   const runner = new ethers.JsonRpcProvider("https://mainnet.base.org");
