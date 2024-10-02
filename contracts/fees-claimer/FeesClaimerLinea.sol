@@ -4,14 +4,14 @@ pragma solidity ^0.8.0;
 import {FeesClaimerCore, IStaker} from "./FeesClaimerCore.sol";
 import {IPoolAddressesProvider} from "@zerolendxyz/core-v3/contracts/interfaces/IPoolAddressesProvider.sol";
 
-contract FeesClaimerBase is FeesClaimerCore {
+contract FeesClaimerLinea is FeesClaimerCore {
     uint256 public treasuryPercentage;
     IStaker public staker;
 
-    function init(
+    function initialize(
         IPoolAddressesProvider _provider,
         address _collector,
-        address _weth,
+        address _wethOrTargetAsset,
         address _odos,
         address[] memory _tokens,
         address _gelatoooooo,
@@ -22,7 +22,7 @@ contract FeesClaimerBase is FeesClaimerCore {
         __FeesClaimer_init(
             _provider,
             _collector,
-            _weth,
+            _wethOrTargetAsset,
             _odos,
             _tokens,
             _gelatoooooo,

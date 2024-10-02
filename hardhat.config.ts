@@ -1,9 +1,28 @@
 import { HardhatUserConfig } from "hardhat/config";
-import "@nomicfoundation/hardhat-toolbox-viem";
+import "@nomicfoundation/hardhat-toolbox";
 import "@gelatonetwork/web3-functions-sdk/hardhat-plugin";
 import "hardhat-dependency-compiler";
+import "hardhat-deploy";
+
 import dotenv from "dotenv";
 dotenv.config();
+
+const defaultAccount = {
+  mnemonic:
+    process.env.MNEMONIC ||
+    "test test test test test test test test test test test junk",
+  path: "m/44'/60'/0'/0",
+  initialIndex: Number(process.env.MNEMONIC_INDEX || 0),
+  count: 20,
+  passphrase: "",
+};
+
+const _network = (url: string, gasPrice: number | "auto" = "auto") => ({
+  url,
+  accounts: defaultAccount,
+  saveDeployments: true,
+  gasPrice,
+});
 
 const config: HardhatUserConfig = {
   w3f: {
@@ -21,49 +40,56 @@ const config: HardhatUserConfig = {
   },
   networks: {
     hardhat: {
-      forking: {
-        url: "https://rpc.linea.build",
-      },
-      accounts: [
-        {
-          privateKey: process.env.WALLET_PRIVATE_KEY || "",
-          balance: "10000000000000000000000000000000000000",
-        },
-      ],
+      // forking: {
+      //   url: `https://rpc.ankr.com/eth`,
+      // },
+      accounts: defaultAccount,
     },
-    manta: {
-      url: "https://pacific-rpc.manta.network/http",
-      accounts: [process.env.WALLET_PRIVATE_KEY || ""],
-    },
-    era: {
-      url: "https://mainnet.era.zksync.io",
-      accounts: [process.env.WALLET_PRIVATE_KEY || ""],
-    },
-    linea: {
-      url: "https://rpc.linea.build",
-      accounts: [process.env.WALLET_PRIVATE_KEY || ""],
-      chainId: 59144,
-    },
-    blast: {
-      url: "https://rpc.ankr.com/blast",
-      accounts: [process.env.WALLET_PRIVATE_KEY || ""],
-      chainId: 81457,
-    },
+    arbitrum: _network("https://arb1.arbitrum.io/rpc"),
+    base: _network("https://mainnet.base.org"),
+    bsc: _network("https://bsc-dataseed1.bnbchain.org"),
+    blast: _network("https://rpc.blast.io"),
+    linea: _network("https://rpc.linea.build"),
+    mainnet: _network("https://rpc.ankr.com/eth"),
+    zircuit: _network("https://zircuit-mainnet.drpc.org"),
+    optimism: _network("https://mainnet.optimism.io"),
+    scroll: _network("https://rpc.ankr.com/scroll", 1100000000),
+    sepolia: _network("https://rpc2.sepolia.org"),
+    xlayer: _network("https://xlayerrpc.okx.com"),
+  },
+  namedAccounts: {
+    deployer: 0,
+    proxyAdmin: 1,
   },
   etherscan: {
     apiKey: {
-      manta: "123",
-      blast: "BIMMMKKB7I2HMABKJ9C2U1EH6PIIZCSPEF",
-      linea: "Y7TKICWCPM22AUWWF3TXXAFCMPT6XTVHJI",
-      // [eEthereumNetwork.main]: "YKI5VW86TBDGWQZQFHIA3AACABTUUFMYPV",
+      mainnet: process.env.ETHERSCAN_KEY || "",
+      sepolia: process.env.ETHERSCAN_KEY || "",
+      base: process.env.BASESCAN_KEY || "",
+      blast: process.env.BLASTSCAN_KEY || "",
+      bsc: process.env.BSCSCAN_KEY || "",
+      linea: process.env.LINEASCAN_KEY || "",
+      optimisticEthereum: process.env.OP_ETHERSCAN_KEY || "",
+      scroll: process.env.SCROLLSCAN_KEY || "",
+      arbitrumOne: process.env.ARBISCAN_KEY || "",
+      xlayer: "test",
     },
     customChains: [
       {
-        network: "manta",
-        chainId: 169,
+        network: "xlayer",
+        chainId: 196,
         urls: {
-          apiURL: "https://pacific-explorer.manta.network/api",
-          browserURL: "https://pacific-explorer.manta.network",
+          apiURL:
+            "https://www.oklink.com/api/v5/explorer/contract/verify-source-code-plugin/XLAYER",
+          browserURL: "https://www.oklink.com/xlayer",
+        },
+      },
+      {
+        network: "linea",
+        chainId: 59144,
+        urls: {
+          apiURL: "https://api.lineascan.build/api",
+          browserURL: "https://lineascan.build",
         },
       },
       {
@@ -75,11 +101,11 @@ const config: HardhatUserConfig = {
         },
       },
       {
-        network: "linea",
-        chainId: 59144,
+        network: "scroll",
+        chainId: 534352,
         urls: {
-          apiURL: "https://api.lineascan.build/api",
-          browserURL: "https://lineascan.build",
+          apiURL: "https://api.scrollscan.com/api",
+          browserURL: "https://scrollscan.com",
         },
       },
     ],

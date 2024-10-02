@@ -1,7 +1,6 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {IERC20} from "@openzeppelin/contracts/interfaces/IERC20.sol";
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
@@ -58,10 +57,6 @@ abstract contract FeesClaimerCore is Initializable, OwnableUpgradeable {
         wethOrTargetAsset.deposit{value: msg.value}();
     }
 
-    function setOdos(address _odos) public onlyOwner {
-        odos = _odos;
-    }
-
     function balances()
         public
         view
@@ -87,6 +82,14 @@ abstract contract FeesClaimerCore is Initializable, OwnableUpgradeable {
         }
 
         aTokens = _aTokens;
+    }
+
+    function setGelatoooooo(address _gelatoooooo) public onlyOwner {
+        gelatoooooo = _gelatoooooo;
+    }
+
+    function setOdos(address _odos) public onlyOwner {
+        odos = _odos;
     }
 
     function approve() public {
