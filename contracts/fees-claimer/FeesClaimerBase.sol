@@ -20,7 +20,7 @@ contract FeesClaimerBase is FeesClaimerCore {
         address[] memory _tokens,
         address _gelatoooooo,
         address _owner
-    ) public reinitializer(2) {
+    ) public reinitializer(3) {
         __FeesClaimer_init(
             _provider,
             _collector,
@@ -60,18 +60,25 @@ contract FeesClaimerBase is FeesClaimerCore {
         uint256 treasuryAmt = (amt * treasuryPercentage) / 1e18;
         if (treasuryAmt > 0) wethOrTargetAsset.transfer(treasury, treasuryAmt);
 
-        // give % to the USDz/USDC stakers
-        uint256 zaiAmount = (amt * zaiPercentage) / 1e18;
-        if (zaiAmount > 0) {
-            wethOrTargetAsset.approve(address(zaiStaker), zaiAmount);
-            zaiStaker.notifyRewardAmount(wethOrTargetAsset, zaiAmount);
+        // give remaining to the USDz/USDC stakers
+        uint256 remaining = amt - treasuryAmt;
+        if (remaining > 0) {
+            wethOrTargetAsset.approve(address(zaiStaker), remaining);
+            zaiStaker.notifyRewardAmount(wethOrTargetAsset, remaining);
         }
 
-        // rest to zLP staking
-        uint256 remaining = amt - treasuryAmt - zaiAmount;
-        if (remaining > 0) {
-            wethOrTargetAsset.approve(address(zlpStaker), remaining);
-            zlpStaker.notifyRewardAmount(remaining);
-        }
+        // // give % to the USDz/USDC stakers
+        // uint256 zaiAmount = (amt * zaiPercentage) / 1e18;
+        // if (zaiAmount > 0) {
+        //     wethOrTargetAsset.approve(address(zaiStaker), zaiAmount);
+        //     zaiStaker.notifyRewardAmount(wethOrTargetAsset, zaiAmount);
+        // }
+
+        // // rest to zLP staking
+        // uint256 remaining = amt - treasuryAmt - zaiAmount;
+        // if (remaining > 0) {
+        //     wethOrTargetAsset.approve(address(zlpStaker), remaining);
+        //     zlpStaker.notifyRewardAmount(remaining);
+        // }
     }
 }

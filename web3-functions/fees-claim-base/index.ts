@@ -29,7 +29,7 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
 
   try {
     const ret = await getGelatoCode(
-      context.gelatoArgs.chainId,
+      8453,
       usdAddress,
       contractAddress,
       balances.map((b) => b.toString()),

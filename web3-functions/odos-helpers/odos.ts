@@ -65,13 +65,15 @@ export const generateQuote = async (
   const quoteUrl = "https://api.odos.xyz/sor/quote/v2";
   const quoteRequestBody = {
     ...input,
-    slippageLimitPercent: 0.3, // set your slippage limit percentage (1 = 1%),
+    slippageLimitPercent: 1, // set your slippage limit percentage (1 = 1%),
     referralCode: 0, // referral code (recommended)
+    userAddr: "0xd6Ba8805194794744f824279006Fddb2c8278Dee",
     disableRFQs: true,
     compact: true,
   };
 
   console.log(quoteRequestBody);
+
   const response = await fetch(quoteUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
