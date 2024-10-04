@@ -38,7 +38,7 @@ abstract contract FeesClaimerCore is Initializable, OwnableUpgradeable {
         address[] memory _tokens,
         address _gelatoooooo,
         address _owner
-    ) public {
+    ) internal {
         __Ownable_init(msg.sender);
 
         collector = _collector;

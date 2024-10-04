@@ -92,7 +92,8 @@ export async function deployContract(
   hre: HardhatRuntimeEnvironment,
   implementation: string,
   args: any[],
-  name: string
+  name: string,
+  force = false
 ) {
   const { deploy } = hre.deployments;
   const { deployer } = await hre.getNamedAccounts();
@@ -100,7 +101,7 @@ export async function deployContract(
   const contract = await deploy(name, {
     from: deployer,
     contract: implementation,
-    skipIfAlreadyDeployed: true,
+    skipIfAlreadyDeployed: !force,
     args: args,
     autoMine: true,
     log: true,

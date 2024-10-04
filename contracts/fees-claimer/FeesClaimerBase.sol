@@ -20,7 +20,7 @@ contract FeesClaimerBase is FeesClaimerCore {
         address[] memory _tokens,
         address _gelatoooooo,
         address _owner
-    ) public reinitializer(1) {
+    ) public reinitializer(2) {
         __FeesClaimer_init(
             _provider,
             _collector,
