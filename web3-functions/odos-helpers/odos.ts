@@ -67,7 +67,6 @@ export const generateQuote = async (
     ...input,
     slippageLimitPercent: 1, // set your slippage limit percentage (1 = 1%),
     referralCode: 0, // referral code (recommended)
-    userAddr: "0xd6Ba8805194794744f824279006Fddb2c8278Dee",
     disableRFQs: true,
     compact: true,
   };
