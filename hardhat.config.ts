@@ -28,7 +28,7 @@ const config: HardhatUserConfig = {
   w3f: {
     rootDir: "./web3-functions",
     debug: false,
-    networks: ["linea", "base"], // (multiChainProvider) injects provider for these networks
+    networks: ["linea", "base", "mainnet"], // (multiChainProvider) injects provider for these networks
   },
   solidity: "0.8.20",
   dependencyCompiler: {
