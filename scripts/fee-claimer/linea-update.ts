@@ -1,8 +1,9 @@
 import hre from "hardhat";
+import { deployContract } from "../utils";
 
 // An example of a deploy script that will deploy and call a simple contract.
 const main = async function () {
-  console.log(`Running deploy script for FeesBuybackBurn`);
+  console.log(`Running deploy script for FeesClaimerLinea`);
 
   // Create deployer object and load the artifact of the contract you want to deploy.
 
@@ -33,8 +34,30 @@ const main = async function () {
   ];
 
   const safe = "0x14aAD4668de2115e30A5FeeE42CFa436899CCD8A";
-  const factory = await hre.viem.deployContract("FeesClaimSwap");
+  const factory = await deployContract(
+    hre,
+    "FeesClaimerLinea",
+    [],
+    "FeesClaimerLinea"
+  );
   console.log(`impl deployed to ${factory.address}`);
+
+  const proxy = await hre.ethers.getContractAt(
+    "FeesClaimerLinea",
+    factory.address
+  );
+  console.log(
+    "init code",
+    await proxy.initialize.populateTransaction(
+      _provider,
+      _collector,
+      _zero,
+      _odos,
+      _tokens, // address[] memory _tokens
+      _gelly,
+      "0x0F6e98A756A40dD050dC78959f45559F98d3289d"
+    )
+  );
 
   // const proxy = await hre.viem.getContractAt("ITransparentUpgradeableProxy", '');
 
