@@ -11,7 +11,7 @@ const main = async function () {
     "0xC44827C51d00381ed4C52646aeAB45b455d200eB" as `0x${string}`; // IPoolAddressesProvider _provider,
   const _collector =
     "0x89fEc31daD373922879bd6279ccDc3666c5D1b7a" as `0x${string}`; // address _collector,
-  const _zero = "0x78354f8dccb269a615a7e0a24f9b0718fdc3c7a7" as `0x${string}`; // address _zero,
+  const _weth = "0xe5d7c2a44ffddf6b295a15c148167daaaf5cf34f" as `0x${string}`; // address _zero,
   const _odos = "0x2d8879046f1559E53eb052E949e9544bCB72f414" as `0x${string}`; // address _odos,
   const _gelly = "0xcb26c67ece9d7bbdb0205ee4c33f8503a0346134" as `0x${string}`; // address _odos,
   const _tokens = [
@@ -27,7 +27,7 @@ const main = async function () {
   const args = [
     _provider,
     _collector,
-    _zero,
+    _weth,
     _odos,
     _tokens, // address[] memory _tokens
     _gelly,
@@ -51,7 +51,7 @@ const main = async function () {
     await proxy.initialize.populateTransaction(
       _provider,
       _collector,
-      _zero,
+      _weth,
       _odos,
       _tokens, // address[] memory _tokens
       _gelly,

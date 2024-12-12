@@ -11,7 +11,7 @@
     "deploy-w3f-claimer-base": "w3f deploy web3-functions/fees-claim-base/index.ts",
     "deploy-w3f-claimer-mainnet-btc": "w3f deploy web3-functions/fees-claim-mainnet-btc/index.ts",
     "test-w3f-oracle": "hardhat w3f-run coingecko-oracle",
-    "test-w3f-claimer-linea": "hardhat w3f-run fees-claim-linea",
+    "test-w3f-claimer-linea": "hardhat w3f-run fees-claim-linea --network linea --logs",
     "test-w3f-claimer-base": "hardhat w3f-run fees-claim-base --network base --logs",
     "test-w3f-claimer-mainnet-btc": "hardhat w3f-run fees-claim-mainnet-btc --network mainnet --logs",
     "test-w3f-pyth": "hardhat w3f-run pyth-oracle",

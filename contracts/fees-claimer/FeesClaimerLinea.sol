@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import {FeesClaimerCore, IStaker} from "./FeesClaimerCore.sol";
+import {IWETH, FeesClaimerCore, IStaker} from "./FeesClaimerCore.sol";
 import {IPoolAddressesProvider} from "@zerolendxyz/core-v3/contracts/interfaces/IPoolAddressesProvider.sol";
 
 contract FeesClaimerLinea is FeesClaimerCore {
@@ -17,28 +17,18 @@ contract FeesClaimerLinea is FeesClaimerCore {
         address[] memory _tokens,
         address _gelatoooooo,
         address _owner
-    ) public reinitializer(7) {
-        __FeesClaimer_init(
-            _provider,
-            _collector,
-            _wethOrTargetAsset,
-            _odos,
-            _tokens,
-            _gelatoooooo,
-            _owner
-        );
+    ) public reinitializer(9) {
+        __FeesClaimer_init(_provider, _collector, _wethOrTargetAsset, _odos, _tokens, _gelatoooooo, _owner);
     }
 
     function setPercentages(uint256 _treasuryPercentage) public onlyOwner {
         treasuryPercentage = _treasuryPercentage;
     }
 
-    function setAddresses(
-        address _treasury,
-        address _zlpStaker
-    ) public onlyOwner {
+    function setAddresses(address _treasury, address _zlpStaker, address _wethOrTargetAsset) public onlyOwner {
         treasury = _treasury;
         zlpStaker = IStaker(_zlpStaker);
+        wethOrTargetAsset = IWETH(_wethOrTargetAsset);
     }
 
     function execute(bytes memory data) public {
