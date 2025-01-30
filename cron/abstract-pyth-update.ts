@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import { createWalletClient, http, getContract } from "viem";
-import { manta } from "viem/chains";
+import { abstract } from "viem/chains";
 import { privateKeyToAccount } from "viem/accounts";
 import cron from "node-cron";
 import { EvmPriceServiceConnection } from "@pythnetwork/pyth-evm-js";
@@ -29,7 +29,7 @@ const main = async function () {
   // 2. Set up your client with desired chain & transport.
   const walletClient = createWalletClient({
     account,
-    chain: manta,
+    chain: abstract,
     transport: http(),
   });
 
