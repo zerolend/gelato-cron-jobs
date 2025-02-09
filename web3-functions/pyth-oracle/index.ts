@@ -3,9 +3,9 @@ import {
   Web3Function,
   Web3FunctionContext,
 } from "@gelatonetwork/web3-functions-sdk";
-import { utils } from "ethers";
 
 import { EvmPriceServiceConnection } from "@pythnetwork/pyth-evm-js";
+import { Interface } from "ethers";
 
 Web3Function.onRun(async (context: Web3FunctionContext) => {
   const { userArgs } = context;
@@ -32,7 +32,7 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
     return { canExec: false, message: "No price available" };
   }
 
-  const iface = new utils.Interface([
+  const iface = new Interface([
     "function updateFeeds(bytes[] calldata priceUpdateData) public payable",
   ]);
 

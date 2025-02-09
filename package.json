@@ -14,7 +14,7 @@
     "test-w3f-claimer-linea": "hardhat w3f-run fees-claim-linea --network linea --logs",
     "test-w3f-claimer-base": "hardhat w3f-run fees-claim-base --network base --logs",
     "test-w3f-claimer-mainnet-btc": "hardhat w3f-run fees-claim-mainnet-btc --network mainnet --logs",
-    "test-w3f-pyth": "hardhat w3f-run pyth-oracle",
+    "test-w3f-pyth-oracle": "hardhat w3f-run pyth-oracle",
     "deploy-w3f-pyth-oracle": "w3f deploy web3-functions/pyth-oracle/index.ts",
     "deploy-w3f-buyback": "w3f deploy web3-functions/buyback-burn-job/index.ts",
     "deploy-w3f-cg-oracle": "w3f deploy web3-functions/coingecko-oracle/index.ts"
@@ -53,6 +53,7 @@
     "typescript": ">=4.5.0"
   },
   "dependencies": {
+    "@pythnetwork/pyth-evm-js": "^1.83.0",
     "viem": "^2.22.17"
   }
 }

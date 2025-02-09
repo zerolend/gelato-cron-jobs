@@ -28,7 +28,7 @@ const config: HardhatUserConfig = {
   w3f: {
     rootDir: "./web3-functions",
     debug: false,
-    networks: ["linea", "base", "mainnet"], // (multiChainProvider) injects provider for these networks
+    networks: ["linea", "base", "mainnet", "berachain"], // (multiChainProvider) injects provider for these networks
   },
   solidity: "0.8.20",
   dependencyCompiler: {
@@ -54,6 +54,7 @@ const config: HardhatUserConfig = {
     scroll: _network("https://rpc.ankr.com/scroll", 1100000000),
     sepolia: _network("https://rpc2.sepolia.org"),
     xlayer: _network("https://xlayerrpc.okx.com"),
+    berachain: _network("https://rpc.berachain.com"),
   },
   namedAccounts: {
     deployer: 0,
@@ -66,6 +67,7 @@ const config: HardhatUserConfig = {
       base: process.env.BASESCAN_KEY || "",
       blast: process.env.BLASTSCAN_KEY || "",
       bsc: process.env.BSCSCAN_KEY || "",
+      berachain: process.env.BERASCAN_KEY || "",
       linea: process.env.LINEASCAN_KEY || "",
       optimisticEthereum: process.env.OP_ETHERSCAN_KEY || "",
       scroll: process.env.SCROLLSCAN_KEY || "",
@@ -80,6 +82,14 @@ const config: HardhatUserConfig = {
           apiURL:
             "https://www.oklink.com/api/v5/explorer/contract/verify-source-code-plugin/XLAYER",
           browserURL: "https://www.oklink.com/xlayer",
+        },
+      },
+      {
+        network: "berachain",
+        chainId: 80094,
+        urls: {
+          apiURL: "https://api.berascan.com/api",
+          browserURL: "https://berascan.com",
         },
       },
       {
